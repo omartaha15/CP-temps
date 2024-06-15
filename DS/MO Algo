@@ -1,0 +1,76 @@
+int n;
+int cur = 0;
+const int N = 2e5 + 9 ;
+const int SQRT = (int) sqrt(N);
+
+int a[N], ans[N];
+int frq[N] ;
+void remove(int idx) {
+    frq[a[idx]]--;
+    if (frq[a[idx]] == 0)
+        cur--;
+}
+
+void add(int idx) {
+    if (frq[a[idx]] == 0)
+        cur++;
+    frq[a[idx]]++;
+}
+
+int get_answer() {
+    return cur;
+}
+
+struct Query {
+    int L = 0;
+    int R = 0;
+    int Qidx = 0;
+
+    Query(int l, int r, int idx) {
+        L = l;
+        R = r;
+        Qidx = idx;
+    }
+
+    bool operator <(Query b) const {
+        if(L/SQRT == b.L / SQRT ) {
+            return R < b.R ;
+        }
+        return L < b.L ;
+    }
+};
+
+vector<Query> Queries;
+
+void MO() {
+    sort(all(Queries));
+
+    int curL = 0;
+    int curR = -1;
+
+    for (auto Q: Queries) {
+        while (curL > Q.L) { curL--, add(curL); }
+        while (curR < Q.R) { curR++, add(curR); }
+        while (curL < Q.L) { remove(curL), curL++; }
+        while (curR > Q.R) { remove(curR), curR--; }
+        ans[Q.Qidx] = get_answer();
+    }
+}
+
+void Fun() {
+    int n, q;
+    cin >> n >> q;
+    Queries = vector<Query>(q , {0 , 0 ,0 });
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < q; i++) {
+        int l, r;
+        cin >> l >> r;
+        Queries[i] = Query(l - 1, r - 1, i);
+    }
+    MO();
+    for (int i = 0; i < q; i++) {
+        cout << ans[i] << endl;
+    }
+}

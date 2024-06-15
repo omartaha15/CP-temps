@@ -1,5 +1,11 @@
 # ninja log v5
-0	1374	7327507288456236	CMakeFiles/CP_temps.dir/main.cpp.obj	77f713e411f13fcb
-1377	1513	7327507289826571	CP_temps.exe	4244f129314acbac
-3	1170	7327509245971434	CMakeFiles/CP_temps.dir/DS/SegmantTree.cpp.obj	126a4d613907d3c8
-1171	1289	7327509247083134	CP_temps.exe	ce8d1a91dd5d383
+16	1037	7400838425105696	CMakeFiles/CP_temps.dir/main.cpp.obj	7d545d345696f2f3
+1037	1129	7400838426021372	CP_temps.exe	aae2d338b61f1851
+60	3427	7350080826356006	CMakeFiles/CP_temps.dir/DS/Lazy_propagation.cpp.obj	4c5e1072f23ce3a2
+25	1199	7399667026240296	CMakeFiles/CP_temps.dir/DS/DSU.cpp.obj	8c5136511f022962
+47	3596	7350080828079769	CMakeFiles/CP_temps.dir/DS/SegmantTree.cpp.obj	d9fb86aeb7cb86b6
+135	1210	7364888819705420	CMakeFiles/CP_temps.dir/DS/OrderdSet.cpp.obj	b0492fb93afaf63
+14	141	7401400492895152	CMakeFiles/CP_temps.dir/other/Pragmas.cpp.obj	51d4ac6677612a12
+11	587	7401400497349896	CMakeFiles/CP_temps.dir/DS/OrderdSet.cpp.obj	b0492fb93afaf63
+6	1008	7401400501557804	CMakeFiles/CP_temps.dir/DS/SegmantTree.cpp.obj	d9fb86aeb7cb86b6
+1008	1234	7401400503781830	CP_temps.exe	d956b4e6bca35440

@@ -1,0 +1,81 @@
+struct Node {
+    int cnt;
+    bool isEndOfNumber;
+    Node* child[20];
+
+    Node() {
+        cnt = 0;
+        isEndOfNumber = false;
+        for (auto& i : child)
+            i = NULL;
+    }
+};
+
+struct Trie {
+    Node* root = new Node();
+    void insertNumber(string numStr) {
+        Node* tmp = root;
+        for (char c : numStr) {
+            int digit = c - '0';
+            if (tmp->child[digit] == NULL) {
+                tmp->child[digit] = new Node();
+            }
+            tmp = tmp->child[digit];
+            tmp->cnt++;
+        }
+        tmp->isEndOfNumber = true;
+    }
+
+    bool isPrefixOfNumber(string numStr) {
+        Node* tmp = root;
+        for (char c : numStr) {
+            int digit = c - '0';
+            if (tmp->child[digit] == NULL) {
+                return false;
+            }
+            tmp = tmp->child[digit];
+        }
+        return tmp->cnt > 1;
+    }
+
+};struct Node {
+      int cnt;
+      bool isEndOfNumber;
+      Node* child[20];
+
+      Node() {
+          cnt = 0;
+          isEndOfNumber = false;
+          for (auto& i : child)
+              i = NULL;
+      }
+  };
+
+  struct Trie {
+      Node* root = new Node();
+      void insertNumber(string numStr) {
+          Node* tmp = root;
+          for (char c : numStr) {
+              int digit = c - '0';
+              if (tmp->child[digit] == NULL) {
+                  tmp->child[digit] = new Node();
+              }
+              tmp = tmp->child[digit];
+              tmp->cnt++;
+          }
+          tmp->isEndOfNumber = true;
+      }
+
+      bool isPrefixOfNumber(string numStr) {
+          Node* tmp = root;
+          for (char c : numStr) {
+              int digit = c - '0';
+              if (tmp->child[digit] == NULL) {
+                  return false;
+              }
+              tmp = tmp->child[digit];
+          }
+          return tmp->cnt > 1;
+      }
+
+  };

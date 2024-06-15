@@ -1,0 +1,24 @@
+// Overload operators for __int128
+ostream& operator<<(ostream& os, __int128 n) {
+    if (n == 0) return os << '0';
+    char buf[64];
+    int i = 0;
+    while (n > 0) {
+        buf[i++] = (char)(n % 10 + '0');
+        n /= 10;
+    }
+    while (i--) os << buf[i];
+    return os;
+}
+
+istream& operator>>(istream& is, __int128& n) {
+    string s;
+    is >> s;
+    n = 0;
+    for (char c : s) {
+        if ('0' <= c && c <= '9') {
+            n = 10 * n + (c - '0');
+        }
+    }
+    return is;
+}

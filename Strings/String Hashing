@@ -1,0 +1,81 @@
+const int base1 = 31;
+const int base2 = 26;
+const int MOD = 1e9 + 7;
+int NH = 1e4 + 5;
+vector<int> preHashing1, prePower1, preInverse1;
+vector<int> preHashing2, prePower2, preInverse2;
+
+int H_add(int a, int b) {
+    a = (a + MOD) % MOD;
+    b = (b + MOD) % MOD;
+    return (a + b) % MOD;
+}
+
+int H_mul(int a, int b) {
+    return 1LL * a * b % MOD;
+}
+
+int calculatePower(int Base, int exponent) {
+    if (exponent == 0) {
+        return 1;
+    }
+
+    int result = calculatePower(Base, exponent >> 1);
+    result = H_mul(result, result);
+
+    if (exponent & 1) {
+        result = H_mul(result, Base);
+    }
+
+    return result;
+}
+
+int inverse(int val) {
+    return calculatePower(val, MOD - 2);
+}
+
+void preProcessing(int n) {
+    prePower1.resize(n), preInverse1.resize(n);
+    prePower2.resize(n), preInverse2.resize(n);
+    prePower1[0] = 1, preInverse1[0] = 1;
+    prePower2[0] = 1, preInverse2[0] = 1;
+    for (int i = 1; i < n; i++) {
+        prePower1[i] = H_mul(prePower1[i - 1], base1);
+        preInverse1[i] = calculatePower(prePower1[i], MOD - 2);
+        prePower2[i] = H_mul(prePower2[i - 1], base2);
+        preInverse2[i] = calculatePower(prePower2[i], MOD - 2);
+    }
+}
+
+void buildStringHashing(string &s) {
+    int n = s.size();
+    preHashing1.resize(n);
+    preHashing2.resize(n);
+    int hashValue1 = 0;
+    int hashValue2 = 0;
+    for (int i = 0; i < n; i++) {
+        hashValue1 = H_add(hashValue1, H_mul(s[i] - 'a' + 1, prePower1[i]));
+        hashValue2 = H_add(hashValue2, H_mul(s[i] - 'a' + 1, prePower2[i]));
+        preHashing1[i] = hashValue1;
+        preHashing2[i] = hashValue2;
+    }
+}
+
+pair<int, int> GetHash(string &s) {
+    int n = s.length();
+    int retHash1 = 0;
+    int retHash2 = 0;
+    for (int i = 0; i < n; i++) {
+        retHash1 = H_add(retHash1, H_mul(s[i] - 'a' + 1, prePower1[i]));
+        retHash2 = H_add(retHash2, H_mul(s[i] - 'a' + 1, prePower2[i]));
+    }
+    return {retHash1, retHash2};
+}
+
+pair<int, int> GetHash(int L, int R) {
+    if (L == 0)
+        return {preHashing1[R], preHashing2[R]};
+    int retHash1 = H_mul(H_add(preHashing1[R], -1 * preHashing1[L - 1]), preInverse1[L]);
+    int retHash2 = H_mul(H_add(preHashing2[R], -1 * preHashing2[L - 1]), preInverse2[L]);
+    return {retHash1, retHash2};
+}
